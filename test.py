@@ -1,22 +1,11 @@
-import itertools
-def print_info(s):
-    flag = True
-    print(s)
-    #print(len(s))
-    print(type(s))
-    for i in s:
-        print(i)
-        if flag:
-            print(type(i))
-            flag=False
-    pass
-step ='DDRR'
-a = set(itertools.permutations(step, 4))
-c = (itertools.permutations(step, 4))
-b = list(map('->'.join,a))
+coins = [2]
+amount = 11
+def coinChange(coins, amount):
+        MAX = float('inf')
+        dp = [0] + [MAX] * amount
 
-print_info(a)
-print_info(c)
-m = 7
-n = 3
-#print(sorted(map(lambda x: "".join(x), set(itertools.permutations('DDDDDDRR', 8)))))
+        for i in range(1, amount + 1):
+            dp[i] = min([dp[i - c] if i - c >= 0 else MAX for c in coins]) + 1
+            print(i,amount,sep=" | ")
+        return [dp[amount], -1][dp[amount] == MAX]
+coinChange(coins,amount)
