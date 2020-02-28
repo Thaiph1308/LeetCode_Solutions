@@ -1,17 +1,25 @@
-def correct_anagram(s, t):
-    if len(s) != len(t):
-        return False
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-    count_s = [0] * 256  # there are 256 ASCII characters
-    count_t = [0] * 256
-
-    for s_i, t_i in zip(s, t):
-        count_s[ord(s_i)] += 1
-        count_t[ord(t_i)] += 1
-
-    for i in range(256):
-        if(count_s[i] != count_t[i]):
-            return False
-    return True
-
-print(correct_anagram('abcdefgh','acbdehgf'))
+class Solution(object):
+    def findTarget(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: bool
+        """
+        mem = {}
+        def traverse(root,target):
+            if root:    
+                if (root.val not in mem):
+                    #print(root.val,mem)
+                    mem[target-root.val] = root.val
+                else:
+                    return True
+                return traverse(root.left,target) or traverse(root.right,target)
+        return  traverse(root,k)
+    
